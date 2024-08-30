@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/shopper
+    depends_on:
+      - mongo
+      
+  mongo:
+    image: mongo:6.0
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo_data:/data/db
+      
+volumes:
+  mongo_data:
+    driver: local
